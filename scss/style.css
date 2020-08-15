@@ -51,6 +51,7 @@ input {
   margin-bottom: 2%;
   cursor: pointer;
 }
+
 #list .delete-button {
   color: red;
   text-transform: uppercase;
@@ -72,4 +73,12 @@ button {
   background-color: red;
   border: 1px solid black;
   cursor: pointer;
+}
+
+.line{
+  text-decoration: line-through;
+}
+
+#testUl p{
+  color: red;
 }

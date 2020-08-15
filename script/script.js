@@ -2,12 +2,12 @@ var dataInput = document.querySelector("#taskInput");
 var searchInput = document.querySelector('#search');
 var ulSpisok = document.getElementById("list");
 var spans = document.getElementsByClassName("delete-button");
-var favSpan = document.getElementsByClassName('favoriteBtn')
+var favSpan = document.getElementsByClassName('favoriteBtn');
 var saveBtn = document.getElementById("save");
 var clearBtn = document.getElementById("clear");
 var closeBtn = document.getElementById("close-modal");
-var complete = document.querySelector('.compl');
-var favorite = document.querySelector('.favor');
+var complete = document.querySelector('.completeSpan');
+var favorite = document.querySelector('.favoriteSpan');
 var allBtn = document.querySelector('#all');
 var complBtn = document.querySelector('#complete');
 var favoriteBtn = document.querySelector('#favorite');
@@ -59,23 +59,26 @@ function loadTodo(){
 };
 
 function toComplete(){
-    for(let li of document.getElementsByClassName('task')){
-      li.addEventListener('click', function(){
-        let ul = li.parentNode;
-          if(li.style.textDecoration === 'line-through'){
-            li.style.textDecoration = 'none';
-            complArr.pop(li);
-            complete.innerHTML = complArr.length;
-            ul.classList.remove('compl');
-          } else{
-            li.style.textDecoration = 'line-through';
+    document.getElementById('list').addEventListener('click', function(e){
+
+        if(e.target.tagName === 'P'){
+            e.target.classList.toggle('line');
+            e.target.parentNode.classList.toggle('compl');
+        }
+    })
+  }
+
+function completeCounter(){
+    for(let li of document.getElementsByClassName('compl')){
+        if(li.className === 'compl'){
             complArr.push(li);
             complete.innerHTML = complArr.length;
-            ul.classList.add('compl');
-          }
-      })
+        } else{
+            complArr.pop(li);
+            complete.innerHTML = complArr.length;
+        }
     }
-  }
+}
 
 
 // addEventListener - обработчик события с последующим вызовом функции
@@ -88,7 +91,7 @@ searchInput.addEventListener('keyup', function(){
             if(item.innerHTML.toLowerCase().indexOf(filter) > -1){
                 item.style.display = '';
             } else{
-                item.style.display = 'none'
+                item.style.display = 'none';
             }
         })
 })
@@ -107,7 +110,8 @@ dataInput.addEventListener("keypress", function(keyPressed){
             minute: 'numeric', 
             second: 'numeric'
         }
-        newTask.classList.add("task");
+        // newTask.classList.add("task");
+        
         fBtn.classList.add('favoriteBtn');
         fBtn.innerHTML = '!';
         newSpan.innerHTML = "Удалить";
@@ -165,6 +169,12 @@ complBtn.addEventListener('click', () => {
     }
 });
 
+// document.getElementById('testUl').addEventListener('click', function(e){
+//     console.log(e.target.textContent);
+//     if(e.target.tagName === 'P'){
+//         e.target.classList.toggle('line');
+//     }
+// })
 
 
 deleteTodo();
